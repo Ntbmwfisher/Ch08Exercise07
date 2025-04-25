@@ -13,7 +13,8 @@
 using namespace std;
 
 //  ------------------------------------------------------------------------
-//  Program that  
+//  Program that asks user for 5 voter names and votes then sorts them with 
+//  Insertion sort and displays the results.
 //  ------------------------------------------------------------------------
 
 //  Function to get percentage of votes
@@ -27,7 +28,7 @@ void Vote_Calc(double voter_list[], double percentage_list[]) {
 	}
 }
 
-//  Function that finds the winner
+//  Function that finds sorts the names, votes, and percentages with insertion sort
 void Winner(string names[], double sorting_list[], double percent[]) {
 	bool found = false;
 	int a, b, index_memory;
@@ -72,6 +73,8 @@ int main() {
 	cout << "\n\n  Welcome to the calcomatic voting machine.";
 	cout << "\n  I will talley the votes and see who won.";
 	cout << "\n  ----------------------------------------" << endl; 
+	
+	//  Using do loop for error handling and if statement for number suffix  
 	do {
 		if (i == 0) {
 			voter_suffix = "st";
@@ -91,6 +94,7 @@ int main() {
 				break;
 			}
 			else {
+				cout << "  Please enter a valid name: ";
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}
@@ -102,16 +106,23 @@ int main() {
 				break;
 			}
 			else {
+				cout << "  Please enter a valid number: ";
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}
 		}
 	i++;
 	}while (i < 5);
+	
+	//  Call functions from above to calculate percentage and sort the votes
 	Vote_Calc(votes, percentage);
 	Winner(people, votes, percentage);
+
+	//  Output the results
 	cout << "\n\n  The voting result for this years election are...";
 	cout << "\n  ------------------------------------------------" << endl;
+	
+	//  Using printf keep the columns aligned
 	printf("  %-15s %-15s %-15s\n", "Name", "Votes", "Percentage");
 	printf("  ------------------------------------------------\n");
 	for (int i = 0; i < 5; i++) {
@@ -119,12 +130,16 @@ int main() {
 	}
 	total_votes = votes[0] + votes[1] + votes[2] + votes[3] + votes[4];
 	printf("\n  Total votes: %-15d\n", total_votes);
+	
+	//  Incase of a tie
 	if (votes[0] == votes[1]) {
 		cout << "\n\n  There is a tie, we may have to flip a coin.";
 	}
 	else {
 		cout << "\n\n  The winner is " << people[0] << " with a whopping " << votes[0] << " votes.";
 	}
+	
+	//  End of program
 	cout << "\n\n  Press any key to exit..."; 
 	(void)_getch();
 	return 0;
